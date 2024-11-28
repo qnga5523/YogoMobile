@@ -33,6 +33,9 @@ public class Activity_ClassInstance extends AppCompatActivity {
         dbHelper = new DatabaseHelper(this);
         courseIds = new ArrayList<>();
         loadCoursesIntoSpinner();
+        if(!courseIds.isEmpty()){
+            selectCourse(courseIds.get(0));
+        };
         classDateEditText.setOnClickListener(v -> showDatePickerDialog());
         addClassButton.setOnClickListener(view -> addClassInstance());
     }
@@ -50,7 +53,7 @@ public class Activity_ClassInstance extends AppCompatActivity {
         datePickerDialog.show();
     }
     private void loadCoursesIntoSpinner() {
-        Cursor cursor = dbHelper.readClassInstancesData();
+        Cursor cursor = dbHelper.readAllCourse();
         List<String> courseNames = new ArrayList<>();
         if (cursor.getCount() == 0) {
             Toast.makeText(this, "No courses found in the database.", Toast.LENGTH_SHORT).show();
